@@ -20,7 +20,7 @@ main(int argc, char **argv)
 	int port = SERVICE_PORT;	/* default: whatever is in port.h */
 	char *host = "localhost";	
 	int fd;				/* file descriptor for socket */
-	int MAXBUF = 30;
+	int MAXBUF = 20;
 	int nbytes;
 	static char usage[] = 
 	"usage: %s [-d] [-h serverhost] [-p port]\n";
@@ -67,10 +67,12 @@ main(int argc, char **argv)
 	strcat(stockmessage, http);
 	printf(stockmessage);
 	nbytes = write(fd, stockmessage, 42);	
+	nbytes = write(fd, stockmessage, 42);	
 	printf("write complete\n");
 	//nbytes=read(fd,buffer,MAXBUF);
 	while(read(fd,buffer,MAXBUF)>0)
 	{
+		printf("%s\n","read");
 		printf("%s\n",buffer);
 	}
 	disconn(fd);    /* disconnect */
