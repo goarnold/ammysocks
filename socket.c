@@ -55,12 +55,16 @@ main(int argc, char **argv)
 	char buffer[MAXBUF];
 	char prev[MAXBUF];
 	char *stock = "aapl";
-	char *endmessage = "&f=snl1 HTTP/1.0\n\n";
+	char *http = " HTTP/1.0\n\n";
+	char *endmessage = "&f=";
+	char *tags = "snl1";
 	char *frontmessage = "GET /d/quotes.csv?s=";
-	char* stockmessage = malloc(strlen(stock) + strlen(endmessage) + strlen(frontmessage)+1);
+	char* stockmessage = malloc(strlen(stock) + strlen(endmessage) + strlen(frontmessage)+strlen(http)+strlen(tags)+1);
 	strcpy(stockmessage,frontmessage);
 	strcat(stockmessage, stock);
 	strcat(stockmessage, endmessage);
+	strcat(stockmessage, tags);
+	strcat(stockmessage, http);
 	printf(stockmessage);
 	nbytes = write(fd, stockmessage, 42);	
 	printf("write complete\n");
@@ -69,13 +73,6 @@ main(int argc, char **argv)
 	{
 		printf("%s\n",buffer);
 	}
-	/*nbytes = read(fd, buffer, MAXBUF);
-	printf("read complete\n");
-	printf("%s\n",buffer);
-	nbytes = read(fd, buffer, MAXBUF);
-	printf("read complete\n");
-	printf("%s\n",buffer);*/
-		 /*write(2, "An error occurred in the read.\n", 31); *//* read up to MAXBUF bytes */
 	disconn(fd);    /* disconnect */
 	return 0;
 }
